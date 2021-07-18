@@ -26,7 +26,7 @@ const server = net.createServer((socket: net.Socket) => {
       console.log(`[DEBUG] Data from remote: ${data.toString()}`);
     }
 
-    samp.query({
+    samp({
       host: SAMP_ADDRESS,
       port: SAMP_PORT,
       timeout: SAMP_TIMEOUT,
@@ -36,6 +36,8 @@ const server = net.createServer((socket: net.Socket) => {
       } else {
         socket.write(JSON.stringify({ status: 'up', players: response.online }));
       }
+
+      socket.destroy();
     });
   });
   
