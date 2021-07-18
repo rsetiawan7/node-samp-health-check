@@ -6,6 +6,8 @@ dotenv.config();
 
 const {
   DEBUG_ENABLED,
+  APP_ADDRESS,
+  APP_PORT,
   SAMP_ADDRESS,
   SAMP_PORT,
   SAMP_TIMEOUT = 1000,
@@ -51,4 +53,11 @@ const server = net.createServer((socket: net.Socket) => {
     console.error(`An error occured on remote ${socket.remoteAddress}:${socket.remotePort}`);
     console.error(error);
   });
+});
+
+server.listen({
+  host: APP_ADDRESS,
+  port: APP_PORT,
+}, () => {
+  console.info(`Server running at ${APP_ADDRESS}:${APP_PORT}`);
 });
