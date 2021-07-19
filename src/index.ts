@@ -32,12 +32,10 @@ const server = net.createServer((socket: net.Socket) => {
       timeout: SAMP_TIMEOUT,
     }, (error: any, response: any) => {
       if (error) {
-        socket.write(JSON.stringify({ status: 'down', players: 0 }));
+        socket.destroy();
       } else {
-        socket.write(JSON.stringify({ status: 'up', players: response.online }));
+        socket.end(JSON.stringify({ status: 'up', players: response.online }), 'utf8')
       }
-
-      socket.destroy();
     });
   });
   
